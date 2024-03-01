@@ -1,17 +1,15 @@
 package utils;
 
-import model.BookingDates;
+import lombok.SneakyThrows;
 import model.Booking;
-import net.datafaker.Faker;
+import model.BookingDates;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestBooking {
-
-    private static final Faker faker = new Faker();
-
-    private Booking booking =
+public class OldTestBooking {
 
     public enum Type {
         SALLY,
@@ -32,7 +30,6 @@ public class TestBooking {
         // Add more bookings as needed
     }
 
-
     /**
      * Creates a {@link Booking} object with the provided data
      *
@@ -45,8 +42,13 @@ public class TestBooking {
      * @param additionalNeeds Any additional needs the guest has
      * @return a {@link Booking} object
      */
+    @SneakyThrows
     private static Booking setBooking(String firstname, String lastname, int totalPrice, boolean depositPaid,
                                       String checkin, String checkout, String additionalNeeds) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date checkinDate = formatter.parse(checkin);
+        Date checkoutDate = formatter.parse(checkout);
+
         BookingDates bookingDates = BookingDates.builder()
             .checkin(checkin)
             .checkout(checkout)
@@ -76,8 +78,5 @@ public class TestBooking {
         }
         return booking;
     }
-
-
-    public
 
 }

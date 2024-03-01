@@ -1,4 +1,4 @@
-package specs;
+package Base;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -11,26 +11,26 @@ import org.apache.http.HttpStatus;
 
 public class BaseSpec {
 
-    private static String host;
-    private static int port;
+    private static String containerHostname;
+    private static int containerPort;
 
     public static void init(String host, int port) {
-        this.host = host;
-        this.port = port;
+        containerHostname = host;
+        containerPort = port;
     }
 
-    public RequestSpecification getRequestSpec() {
+    public static RequestSpecification requestSpec() {
         return new RequestSpecBuilder()
             .setContentType(ContentType.JSON)
             .setAccept("application/json")      // ContentType.JSON sets multiple content-types
-            .setBaseUri("http://" + host)
-            .setPort(port)
+            .setBaseUri("http://" + containerHostname)
+            .setPort(containerPort)
             .addFilter(new RequestLoggingFilter())
             .addFilter(new ResponseLoggingFilter())
             .build();
     }
 
-    public ResponseSpecification getResponseSpec() {
+    public static ResponseSpecification responseSpec() {
         return new ResponseSpecBuilder()
             .expectStatusCode(HttpStatus.SC_OK)
             .expectContentType(ContentType.JSON)

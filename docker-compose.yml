@@ -1,0 +1,9 @@
+##
+## Docker compose file for restful-booker. Was used during exploratory testing of the API.
+##
+version: "3"
+services:
+  restful-booker:
+    image: mwinteringham/restfulbooker
+    ports:
+      - "3001:3001"

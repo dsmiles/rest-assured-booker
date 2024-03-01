@@ -1,9 +1,11 @@
 package model;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class Authentication {
+@Builder
+public class Credentials {
     private String username;
     private String password;
 }

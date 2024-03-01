@@ -1,17 +1,18 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
-
 
 @Data
 @Builder
 @Jacksonized
-public class BookingDetail {
-    @JsonProperty("bookingid")
-    private int bookingId;              // ID for newly created booking
+@NoArgsConstructor
+@AllArgsConstructor
+public class Booking {
 
     private String firstname;           // Firstname for the guest who made the booking
     private String lastname;            // Lastname for the guest who made the booking
