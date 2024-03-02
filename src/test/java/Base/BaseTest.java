@@ -6,6 +6,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+import specs.BaseSpec;
 
 @Testcontainers
 public class BaseTest {
@@ -29,23 +30,5 @@ public class BaseTest {
             bookerContainer.close();
         }
     }
-
-//    protected RequestSpecification getRequestSpec() {
-//        return new RequestSpecBuilder()
-//            .setContentType(ContentType.JSON)
-//            .setAccept("application/json")      // ContentType.JSON sets multiple content-types
-//            .setBaseUri("http://" + bookerContainer.getHost())
-//            .setPort(bookerContainer.getFirstMappedPort())
-//            .addFilter(new RequestLoggingFilter())
-//            .addFilter(new ResponseLoggingFilter())
-//            .build();
-//    }
-//
-//    protected ResponseSpecification getResponseSpec() {
-//        return new ResponseSpecBuilder()
-//            .expectStatusCode(HttpStatus.SC_OK)
-//            .expectContentType(ContentType.JSON)
-//            .build();
-//    }
 
 }

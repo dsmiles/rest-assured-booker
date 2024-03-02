@@ -14,6 +14,29 @@ The test framework utilises the following components:
 - Lombok
 - Datafaker
 
+## Tests
+
+The test framework contains approximately 30 tests (so far), covering the following scenarios:
+
+- GET requests
+- POST requests
+- PUT requests
+- PATCH requests
+- DELETE requests
+- Authentication
+- Response Body verification
+- Response Status Code verification
+- Response headers verification
+- Assertions using Hamcrest Matchers
+- Use of Java Records for passing values to POST, PUT and PATCH request body
+- Use of Datafaker for generating random fake test data and using it in automated tests
+- End to End testing of the Restful-Booker API
+
+I will continue to add more tests as I explore the Restful-Booker API.  
+
+I will also need to update the issues found section as I have identified further problems.
+
+
 ## Testcontainers
 
 ![Testcontainers Logo](/assets/images/testcontainers-logo.svg)

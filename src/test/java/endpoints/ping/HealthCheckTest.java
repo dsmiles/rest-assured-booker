@@ -1,4 +1,4 @@
-package endpoints.health;
+package endpoints.ping;
 
 import Base.BaseTest;
 import io.restassured.RestAssured;
@@ -6,7 +6,7 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static Base.BaseSpec.requestSpec;
+import static specs.BaseSpec.requestSpec;
 
 public class HealthCheckTest extends BaseTest {
 
@@ -31,7 +31,7 @@ public class HealthCheckTest extends BaseTest {
             .given()
             .spec(requestSpec())
             .when()
-            .get("/ping/unknown")
+            .get("/unknown")
             .then()
             .assertThat()
             .statusCode(HttpStatus.SC_NOT_FOUND);
