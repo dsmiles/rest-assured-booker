@@ -6,8 +6,8 @@ import model.Booking;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static helpers.Helpers.createBooking;
-import static helpers.Helpers.getAuthorisation;
+import static helpers.AuthorizationHelper.getAuthorization;
+import static helpers.BookingHelper.createBooking;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
@@ -27,7 +27,7 @@ public class UpdateBookingTest extends BaseTest {
         Booking updatedBooking = new BookingBuilder().build();
 
         // Get token
-        String token = getAuthorisation();
+        String token = getAuthorization();
 
         // Update the original booking and check the data
         given()
@@ -59,7 +59,7 @@ public class UpdateBookingTest extends BaseTest {
         Booking updatedBooking = new BookingBuilder().build();
 
         // Get token
-        String token = getAuthorisation();
+        String token = getAuthorization();
 
         // Update the original booking and check the data
         given()
@@ -71,6 +71,6 @@ public class UpdateBookingTest extends BaseTest {
             .put("/booking/{id}")
             .then()
             .spec(responseSpec())
-            .body(matchesJsonSchemaInClasspath("BookingSchema.json"));;
+            .body(matchesJsonSchemaInClasspath("BookingSchema.json"));
     }
 }

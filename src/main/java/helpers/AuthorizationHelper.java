@@ -1,8 +1,5 @@
 package helpers;
 
-import model.Booking;
-import org.apache.http.HttpStatus;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,30 +9,13 @@ import static org.hamcrest.Matchers.notNullValue;
 import static specs.BaseSpec.requestSpec;
 import static specs.BaseSpec.responseSpec;
 
-public class Helpers {
+public class AuthorizationHelper {
 
     /**
-     * Create a new booking and return its ID
-     * @param booking the booking to create
-     * @return booking ID of the new booking
+     * Get an authorization token using the given credentials
+     * @return an authorization token
      */
-    public static int createBooking(Booking booking) {
-        return given()
-            .spec(requestSpec())
-            .body(booking)
-            .when()
-            .post("/booking")
-            .then()
-            .statusCode(HttpStatus.SC_OK)
-            .extract()
-            .path("bookingid");
-    }
-
-    /**
-     * Get an authorisation token using the given credentials
-     * @return an authorisation token
-     */
-    public static String getAuthorisation() {
+    public static String getAuthorization() {
         Map<String, String> params = new HashMap<>();
         params.put("username", "admin");
         params.put("password", "password123");
