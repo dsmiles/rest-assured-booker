@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static helpers.ClassToJsonConverter.convertClassToJsonWithExtraField;
 import static specs.BaseSpec.requestSpec;
 import static specs.BaseSpec.responseSpec;
 import static io.restassured.RestAssured.given;
@@ -80,23 +81,12 @@ public class CreateBookingTest extends BaseTest {
     @Test
     @DisplayName("Responds with the created booking and assigned booking id when extra fields are sent in the payload")
     public void testCreateNewBookingWithExtraFields() {
-        // Cannot use the Booking builder for this test
-        // Create payload with extra field
-        Map<String, Object> booking = new HashMap<>();
-        booking.put("firstname", "John");
-        booking.put("lastname", "Doe");
-        booking.put("totalprice", 123);
-        booking.put("depositpaid", true);
-        booking.put("bookingdates", new HashMap<String, String>() {{
-            put("checkin", "2024-01-01");
-            put("checkout", "2024-01-02");
-        }});
-        booking.put("additionalneeds", "Breakfast");
-        booking.put("extradata", "This is extra data");
+        Booking booking = new BookingBuilder().build();
+        String payload = convertClassToJsonWithExtraField(booking, "extraField", "extraValue");
 
         given()
             .spec(requestSpec())
-            .body(booking)
+            .body(payload)
             .when()
             .post("/booking")
             .then()
