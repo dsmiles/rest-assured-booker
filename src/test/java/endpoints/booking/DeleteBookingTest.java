@@ -7,8 +7,8 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static helpers.Helpers.createBooking;
-import static helpers.Helpers.getAuthorisation;
+import static helpers.AuthorizationHelper.getAuthorization;
+import static helpers.BookingHelper.createBooking;
 import static io.restassured.RestAssured.given;
 import static specs.BaseSpec.requestSpec;
 
@@ -21,7 +21,7 @@ public class DeleteBookingTest extends BaseTest {
         int bookingId = createBooking(booking);
 
         // Get authorisation token
-        String token = getAuthorisation();
+        String token = getAuthorization();
 
         // Delete the booking
         given()
@@ -39,7 +39,7 @@ public class DeleteBookingTest extends BaseTest {
     @DisplayName("Responds with an error when deleting an non-existing booking")
     void testDeleteNonExistentBooking() {
         // Get authorisation token
-        String token = getAuthorisation();
+        String token = getAuthorization();
 
         // Delete the booking
         given()
@@ -60,7 +60,7 @@ public class DeleteBookingTest extends BaseTest {
         int bookingId = createBooking(booking);
 
         // Get authorisation token
-        String token = getAuthorisation();
+        String token = getAuthorization();
 
         // Delete the booking
         given()
@@ -87,7 +87,7 @@ public class DeleteBookingTest extends BaseTest {
     @DisplayName("Responds with 405 when attempting to delete entire booking collection")
     void testDeleteAllBookings() {
         // Get authorisation token
-        String token = getAuthorisation();
+        String token = getAuthorization();
 
         // Delete the booking
         given()

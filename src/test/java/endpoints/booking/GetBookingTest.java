@@ -7,10 +7,11 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static helpers.Helpers.createBooking;
+import static helpers.BookingHelper.createBooking;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.isA;
 import static specs.BaseSpec.*;
 
 public class GetBookingTest extends BaseTest {

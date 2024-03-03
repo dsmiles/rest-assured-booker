@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static helpers.Helpers.createBooking;
-import static helpers.Helpers.getAuthorisation;
+import static helpers.AuthorizationHelper.getAuthorization;
+import static helpers.BookingHelper.createBooking;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
@@ -33,7 +33,7 @@ public class PartialUpdateTest extends BaseTest {
         partialUpdate.put("lastname", "Potts");
 
         // Get authorisation token
-        String token = getAuthorisation();
+        String token = getAuthorization();
 
         // Update the booking and check the data
         given()
@@ -52,6 +52,6 @@ public class PartialUpdateTest extends BaseTest {
             .body("bookingdates.checkin", equalTo(originalBooking.getBookingDates().getCheckin()))
             .body("bookingdates.checkout", equalTo(originalBooking.getBookingDates().getCheckout()))
             .body("additionalneeds", equalTo(originalBooking.getAdditionalNeeds()))
-            .body(matchesJsonSchemaInClasspath("BookingSchema.json"));;
+            .body(matchesJsonSchemaInClasspath("BookingSchema.json"));
     }
 }
