@@ -76,7 +76,7 @@ public class CreateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with the created booking and assigned booking id when extra fields are sent in the payload")
+    @DisplayName("Responds with the created booking and assigned booking id ignoring extra fields sent in the payload")
     public void testCreateNewBookingWithExtraFields() {
         Booking booking = new BookingBuilder().build();
         String payload = convertClassToJsonWithExtraField(booking, "extraField", "extraValue");
