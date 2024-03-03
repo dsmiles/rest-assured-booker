@@ -8,9 +8,6 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static helpers.ClassToJsonConverter.convertClassToJsonWithExtraField;
 import static specs.BaseSpec.requestSpec;
 import static specs.BaseSpec.responseSpec;
@@ -55,7 +52,7 @@ public class CreateBookingTest extends BaseTest {
             .post("/booking")
             .then()
             .spec(responseSpec())
-            .body(matchesJsonSchemaInClasspath("CreatedBookingSchema.json"));;
+            .body(matchesJsonSchemaInClasspath("CreatedBookingSchema.json"));
     }
 
     // TODO XML payload
@@ -108,7 +105,7 @@ public class CreateBookingTest extends BaseTest {
             .then()
             .statusCode(418)
             .contentType(ContentType.TEXT)
-            .body(equalTo("I'm a teapot"));;  // This should be 406 Not Acceptable
+            .body(equalTo("I'm a teapot"));  // This should be 406 Not Acceptable
 
         // Error: This should be a 406
     }
