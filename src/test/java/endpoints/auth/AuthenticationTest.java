@@ -1,7 +1,6 @@
 package endpoints.auth;
 
 import Base.BaseTest;
-import model.Credentials;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,15 +10,14 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static specs.BaseSpec.requestSpec;
 import static specs.BaseSpec.responseSpec;
 
-public class AuthorisationTest extends BaseTest {
+public class AuthenticationTest extends BaseTest {
 
     @Test
-    @DisplayName("Responds with 200 OK and token when given valid credentials")
+    @DisplayName("Responds with 200 and token when given valid credentials")
     public void testTokenGeneration() {
         Map<String, String> payload = new HashMap<>();
         payload.put("username", "admin");
@@ -33,7 +31,8 @@ public class AuthorisationTest extends BaseTest {
             .then()
             .spec(responseSpec())
             .assertThat()
-            .body("token", is(notNullValue()));
+            .body("token", is(notNullValue()))
+            .body("token", matchesPattern("[a-zA-Z0-9]{15,}"));
     }
 
     @Test
@@ -43,11 +42,9 @@ public class AuthorisationTest extends BaseTest {
         payload.put("username", "badusername");
         payload.put("password", "password123");
 
-        Credentials credentials = Credentials.builder().username("badusername").password("password123").build();
-
         given()
             .spec(requestSpec())
-            .body(credentials)
+            .body(payload)
             .when()
             .post("/auth")
             .then()
@@ -55,8 +52,8 @@ public class AuthorisationTest extends BaseTest {
             .assertThat()
             .statusCode(HttpStatus.SC_UNAUTHORIZED)       // Warning - returns 200 OK
             .body("reason", equalTo("Bad credentials"));
-    }
 
-    // TODO add authentication header tests
+        // Should return a 401 Unauthorized status code and MAY return a payload with a reason
+    }
 
 }

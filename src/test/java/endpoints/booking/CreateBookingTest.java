@@ -18,7 +18,7 @@ import static specs.BaseSpec.responseSpec;
 public class CreateBookingTest extends BaseTest {
 
     @Test
-    @DisplayName("Responds with the created booking and assigned booking id")
+    @DisplayName("Responds with newly created booking and assigned booking ID")
     public void testCreateNewBooking() {
         Booking booking = new BookingBuilder().build();
 
@@ -40,7 +40,7 @@ public class CreateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Check created booking response matches the expected schema")
+    @DisplayName("Newly created booking response matches the expected schema")
     public void testCreateNewBookingSchema() {
         Booking booking = new BookingBuilder().build();
 
@@ -57,10 +57,11 @@ public class CreateBookingTest extends BaseTest {
     // TODO XML payload
 
     @Test
-    @DisplayName("Responds with error when bad payload is sent")
+    @DisplayName("Responds with an error when a bad payload is sent")
     public void testCreateNewBookingWithBadPayload() {
         Booking booking = new BookingBuilder()
             .withFirstname(null)
+            .withLastname(null)
             .build();
 
         given()
@@ -71,11 +72,11 @@ public class CreateBookingTest extends BaseTest {
             .then()
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);  // Should be 400 Bad Request
 
-        // Error: This should be a client error 400
+        // Server side validation SHOULD stop this - Return 400 Bad Request
     }
 
     @Test
-    @DisplayName("Responds with the created booking and assigned booking id ignoring extra fields sent in the payload")
+    @DisplayName("Responds with newly created booking and assigned booking ID ignoring extra fields sent in payload")
     public void testCreateNewBookingWithExtraFields() {
         Booking booking = new BookingBuilder().build();
         String payload = convertClassToJsonWithExtraField(booking, "extraField", "extraValue");
@@ -109,4 +110,6 @@ public class CreateBookingTest extends BaseTest {
         // Error: This should be a 406
     }
 
+    // TODO Payload contains XML Content-Type: application/xml
+    // TODO Response payload Accept: application/xml
 }
