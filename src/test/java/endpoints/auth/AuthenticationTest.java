@@ -1,7 +1,6 @@
 package endpoints.auth;
 
 import Base.BaseTest;
-import model.Credentials;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

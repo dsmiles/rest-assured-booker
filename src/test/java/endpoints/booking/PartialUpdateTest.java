@@ -3,6 +3,7 @@ package endpoints.booking;
 import Base.BaseTest;
 import builders.BookingBuilder;
 import model.Booking;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -105,7 +106,7 @@ public class PartialUpdateTest extends BaseTest {
             .when()
             .patch("/booking/{id}")
             .then()
-            .statusCode(403);
+            .statusCode(HttpStatus.SC_FORBIDDEN);
     }
 
     @Test
@@ -128,13 +129,12 @@ public class PartialUpdateTest extends BaseTest {
             .when()
             .patch("/booking/{id}")
             .then()
-            .statusCode(403);
+            .statusCode(HttpStatus.SC_FORBIDDEN);
     }
 
     @Test
-    @DisplayName("Responds with 403 when attempting partial payload update of non-existent booking")
+    @DisplayName("Responds with 404 when attempting partial payload update of non-existent booking")
     public void testPartialUpdateOfNonExistentBooking() {
-        // Generate partial booking data
         Map<String, String> payload = new HashMap<>();
         payload.put("firstname", "Pepper");
         payload.put("lastname", "Potts");
@@ -151,7 +151,9 @@ public class PartialUpdateTest extends BaseTest {
             .when()
             .patch("/booking/{id}")
             .then()
-            .statusCode(403);
+            .statusCode(HttpStatus.SC_NOT_FOUND);
+
+        // This should be 404 (Not Found), if ID not found or invalid.
     }
 
     // TODO Payload contains XML Content-Type: application/xml
