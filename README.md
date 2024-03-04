@@ -16,7 +16,7 @@ The test framework utilises the following components:
 
 ## Tests
 
-The test framework contains approximately 30 tests (so far), covering the following scenarios:
+The test framework contains approximately 40 tests (so far), covering the following scenarios:
 
 - GET requests
 - POST requests

@@ -16,6 +16,8 @@ import static specs.BaseSpec.*;
 
 public class GetBookingTest extends BaseTest {
 
+    public static final int INVALID_BOOKING_ID = 999999;
+
     @Test
     @DisplayName("Responds with a payload when retrieving booking ID")
     public void testGetBookingById() {
@@ -72,20 +74,19 @@ public class GetBookingTest extends BaseTest {
             .body("booking.bookingdates.checkout", equalTo(booking.getBookingDates().getCheckout()))
             .body("booking.additionalneeds", equalTo(booking.getAdditionalNeeds()));
 
-        // Error: Value returned is Content-Type: text/html; charset=utf-8
+        // Error: Value returned is Content-Type: text/html; charset=utf-8 should be application/xml
     }
 
     @Test
-    @DisplayName("Responds with error when retrieving non-existing booking id")
+    @DisplayName("Responds with error when retrieving non-existing booking ID")
     public void testGetNonExistentBooking() {
         given()
             .spec(requestSpec())
-            .pathParams("id", 999999)
+            .pathParams("id", INVALID_BOOKING_ID)
             .when()
             .get("/booking/{id}")
             .then()
             .statusCode(HttpStatus.SC_NOT_FOUND)
             .body(equalTo("Not Found"));
     }
-
 }

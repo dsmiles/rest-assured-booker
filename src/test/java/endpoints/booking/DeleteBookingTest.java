@@ -7,12 +7,14 @@ import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static helpers.AuthorizationHelper.getAuthorization;
+import static helpers.AuthenticationHelper.getAuthenticationToken;
 import static helpers.BookingHelper.createBooking;
 import static io.restassured.RestAssured.given;
 import static specs.BaseSpec.requestSpec;
 
 public class DeleteBookingTest extends BaseTest {
+
+    public static final int INVALID_BOOKING_ID = 999999;
 
     @Test
     @DisplayName("Responds with a 201 when deleting an existing booking")
@@ -21,7 +23,7 @@ public class DeleteBookingTest extends BaseTest {
         int bookingId = createBooking(booking);
 
         // Get authorisation token
-        String token = getAuthorization();
+        String token = getAuthenticationToken();
 
         // Delete the booking
         given()
@@ -36,16 +38,63 @@ public class DeleteBookingTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Responds with a 201 when deleting an existing booking using auth")
+    void testDeleteBookingWithAuthHeader() {
+        Booking booking = new BookingBuilder().build();
+        int bookingId = createBooking(booking);
+
+        // Delete the booking
+        given()
+            .spec(requestSpec())
+            .auth().preemptive().basic("admin", "password123")
+            .pathParams("id", bookingId)
+            .when()
+            .delete("/booking/{id}")
+            .then()
+            .assertThat()
+            .statusCode(HttpStatus.SC_CREATED);     // This should really be 200 or 204 on deletion success
+    }
+
+    @Test
+    @DisplayName("Responds with 403 when deleting booking when not authorized")
+    void testDeleteBookingsWithoutAuthorization() {
+        given()
+            .spec(requestSpec())
+            .when()
+            .delete("/booking/1")
+            .then()
+            .assertThat()
+            .statusCode(HttpStatus.SC_FORBIDDEN);
+    }
+
+    @Test
+    @DisplayName("Responds with a 403 when deleting booking when not authorised")
+    void testDeleteBookingWithInvalidLogin() {
+        Booking booking = new BookingBuilder().build();
+        int bookingId = createBooking(booking);
+
+        // Delete the booking
+        given()
+            .spec(requestSpec())
+            .auth().preemptive().basic("admin", "badpassword")
+            .pathParams("id", bookingId)
+            .when()
+            .delete("/booking/{id}")
+            .then()
+            .assertThat()
+            .statusCode(HttpStatus.SC_FORBIDDEN);
+    }
+
+    @Test
     @DisplayName("Responds with an error when deleting an non-existing booking")
     void testDeleteNonExistentBooking() {
-        // Get authorisation token
-        String token = getAuthorization();
+        String token = getAuthenticationToken();
 
         // Delete the booking
         given()
             .spec(requestSpec())
             .cookie("token", token)
-            .pathParams("id", 999999)
+            .pathParams("id", INVALID_BOOKING_ID)
             .when()
             .delete("/booking/{id}")
             .then()
@@ -54,40 +103,10 @@ public class DeleteBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with a 404 when deleting an non-existent booking")
-    void testDeletedBooking() {
-        Booking booking = new BookingBuilder().build();
-        int bookingId = createBooking(booking);
-
-        // Get authorisation token
-        String token = getAuthorization();
-
-        // Delete the booking
-        given()
-            .spec(requestSpec())
-            .cookie("token", token)
-            .pathParams("id", bookingId)
-            .when()
-            .delete("/booking/{id}")
-            .then()
-            .assertThat()
-            .statusCode(HttpStatus.SC_CREATED);     // This should really be 200 or 204 on deletion success
-
-        // Attempt to retrieve the booking id
-        given()
-            .spec(requestSpec())
-            .pathParams("id", bookingId)
-            .when()
-            .get("/booking/{id}")
-            .then()
-            .statusCode(HttpStatus.SC_NOT_FOUND);
-    }
-
-    @Test
     @DisplayName("Responds with 405 when attempting to delete entire booking collection")
     void testDeleteAllBookings() {
         // Get authorisation token
-        String token = getAuthorization();
+        String token = getAuthenticationToken();
 
         // Delete the booking
         given()

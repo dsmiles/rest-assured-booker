@@ -28,7 +28,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with subset of booking ids when filtering by firstname")
+    @DisplayName("Responds with subset of booking IDs when filtering by firstname")
     public void testFilterByFirstName() {
         Booking booking = new BookingBuilder().withFirstname("Xander").build();
         createBooking(booking);
@@ -45,7 +45,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with subset of booking ids when filtering by lastname")
+    @DisplayName("Responds with subset of booking IDs when filtering by lastname")
     public void testFilterByLastName() {
         Booking booking = new BookingBuilder().withLastname("Philpotts").build();
         createBooking(booking);
@@ -62,7 +62,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with subset of booking ids when filtering by firstname & lastname")
+    @DisplayName("Responds with subset of booking IDs when filtering by firstname & lastname")
     public void testFilterByFirstAndLastName() {
         Booking booking = new BookingBuilder()
             .withFirstname("Kenyon")
@@ -83,7 +83,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with subset of booking ids when filtering by checkin date")
+    @DisplayName("Responds with subset of booking IDs when filtering by checkin date")
     public void testFilterByCheckinDate() {
         Booking booking = new BookingBuilder().withCheckin("2024-02-29").build();
         createBooking(booking);
@@ -100,7 +100,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with subset of booking ids when filtering by Checkout date")
+    @DisplayName("Responds with subset of booking IDs when filtering by Checkout date")
     public void testFilterByCheckoutDate() {
         Booking booking = new BookingBuilder().withCheckout("2024-02-29").build();
         createBooking(booking);
@@ -117,7 +117,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with subset of booking ids when filtering by checkin and checkout date")
+    @DisplayName("Responds with subset of booking IDs when filtering by checkin and checkout date")
     public void testFilterByCheckinAndCheckoutDate() {
         Booking booking = new BookingBuilder()
             .withCheckin("2024-01-01")
@@ -138,7 +138,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with subset of booking ids when filtering by name, checkin and checkout date")
+    @DisplayName("Responds with subset of booking IDs when filtering by name, checkin and checkout date")
     public void testFilterByNameWithCheckinAndCheckoutDate() {
         Booking booking = new BookingBuilder()
             .withFirstname("Donald")
@@ -170,6 +170,8 @@ public class GetBookingIdsTest extends BaseTest {
             .get("/booking")
             .then()
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);   // This should be 400 Bad Request
+
+        // Server side validation SHOULD stop this - Return 400 Bad Request
     }
 
     @Test
