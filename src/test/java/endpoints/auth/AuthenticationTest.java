@@ -1,6 +1,6 @@
 package endpoints.auth;
 
-import Base.BaseTest;
+import base.BaseTest;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class AuthenticationTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with 401 Unauthorized when given invalid credentials")
+    @DisplayName("Responds with 401 when given invalid credentials")
     public void testTokenGenerationWithInvalidCredentials() {
         Map<String, String> payload = new HashMap<>();
         payload.put("username", "badusername");

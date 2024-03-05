@@ -1,6 +1,6 @@
 package endpoints.booking;
 
-import Base.BaseTest;
+import base.BaseTest;
 import builders.BookingBuilder;
 import model.Booking;
 import org.apache.http.HttpStatus;

@@ -19,11 +19,11 @@ public class BookingBuilder {
      */
     private String firstname = faker.name().firstName();
     private String lastname = faker.name().lastName();
-    private int totalPrice = faker.number().numberBetween(100, 1000);
-    private boolean depositPaid = faker.random().nextBoolean();
+    private final int totalPrice = faker.number().numberBetween(100, 1000);
+    private final boolean depositPaid = faker.random().nextBoolean();
     private String checkin = faker.expression("#{date.past '10', 'DAYS', 'YYYY-MM-dd'}");
     private String checkout = faker.expression("#{date.future '30', 'DAYS', 'YYYY-MM-dd'}");
-    private String additionalNeeds = faker.expression("#{options.option 'Breakfast', 'Lunch', 'Dinner', 'Accessible Room', ''}");
+    private final String additionalNeeds = faker.expression("#{options.option 'Breakfast', 'Lunch', 'Dinner', 'Accessible Room', ''}");
 
     /**
      * Sets the first name for the booking.

@@ -1,6 +1,6 @@
 package endpoints.ping;
 
-import Base.BaseTest;
+import base.BaseTest;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
