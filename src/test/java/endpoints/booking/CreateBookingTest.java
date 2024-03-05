@@ -1,6 +1,6 @@
 package endpoints.booking;
 
-import Base.BaseTest;
+import base.BaseTest;
 import builders.BookingBuilder;
 import io.restassured.http.ContentType;
 import model.Booking;
@@ -40,7 +40,7 @@ public class CreateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Newly created booking response matches the expected schema")
+    @DisplayName("Responds with payload matching expected schema when creating booking")
     public void testCreateNewBookingSchema() {
         Booking booking = new BookingBuilder().build();
 
@@ -57,7 +57,7 @@ public class CreateBookingTest extends BaseTest {
     // TODO XML payload
 
     @Test
-    @DisplayName("Responds with an error when a bad payload is sent")
+    @DisplayName("Responds with error when a bad payload is sent")
     public void testCreateNewBookingWithBadPayload() {
         Booking booking = new BookingBuilder()
             .withFirstname(null)
@@ -92,7 +92,7 @@ public class CreateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with an error when accept header value invalid")
+    @DisplayName("Responds with error when accept header value invalid")
     public void testCreateNewBookingWithInvalidAcceptHeader() {
         Booking booking = new BookingBuilder().build();
 

@@ -30,7 +30,6 @@ The test framework contains approximately 40 tests (so far), covering the follow
 - Assertions using Hamcrest Matchers
 - Use of Java Records for passing values to POST, PUT and PATCH request body
 - Use of Datafaker for generating random fake test data and using it in automated tests
-- End to End testing of the Restful-Booker API
 
 I will continue to add more tests as I explore the Restful-Booker API.  
 
@@ -62,7 +61,7 @@ For more information, visit the [Testcontainers website](https://testcontainers.
 ## restful-booker
 
 Restful-Booker is a Web API playground created by Mark Winteringham for learning about API testing or trying out API 
-testing tools. It offers authentication, CRUD operations, and comes pre-loaded with 10 records, resetting itself every 
+testing tools. It offers authentication, CRUD operations, and comes preloaded with 10 records, resetting itself every 
 10 minutes to its default state. Detailed API documentation is available to help get started with API testing immediately.
 
 For further details, refer to Mark's website [here](https://restful-booker.herokuapp.com), and the API documentation

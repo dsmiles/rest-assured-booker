@@ -1,6 +1,6 @@
 package endpoints.booking;
 
-import Base.BaseTest;
+import base.BaseTest;
 import builders.BookingBuilder;
 import model.Booking;
 import org.apache.http.HttpStatus;
@@ -19,7 +19,7 @@ public class GetBookingTest extends BaseTest {
     public static final int INVALID_BOOKING_ID = 999999;
 
     @Test
-    @DisplayName("Responds with a payload when retrieving booking ID")
+    @DisplayName("Responds with payload when retrieving booking ID")
     public void testGetBookingById() {
         Booking booking = new BookingBuilder().build();
         int bookingId = createBooking(booking);
@@ -41,7 +41,7 @@ public class GetBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Response payload matches expected schema when retrieving booking ID")
+    @DisplayName("Responds with payload matching expected schema when retrieving booking ID")
     public void testGetBookingSchema() {
         given()
             .spec(requestSpec())
@@ -78,7 +78,7 @@ public class GetBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with error when retrieving non-existing booking ID")
+    @DisplayName("Responds with 404 when retrieving non-existing booking ID")
     public void testGetNonExistentBooking() {
         given()
             .spec(requestSpec())

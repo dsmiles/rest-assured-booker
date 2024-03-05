@@ -1,6 +1,6 @@
 package endpoints;
 
-import Base.BaseTest;
+import base.BaseTest;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +17,7 @@ public class UnknownEndpointsTest extends BaseTest {
      * Test to verify that calls to unknown endpoints are rejected.
      */
     @Test
-    @DisplayName("Reject calls to unknown endpoints")
+    @DisplayName("Responds with 404 when calling unknown endpoint")
     public void testUnknownEndpoint() {
         RestAssured
             .given()

@@ -1,4 +1,4 @@
-package Base;
+package base;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +15,7 @@ public class BaseTest {
     protected static final DockerImageName BOOKER_IMAGE = DockerImageName.parse("mwinteringham/restfulbooker:latest");
     protected static final int BOOKER_EXPOSED_PORT = 3001;
     @Container
-    protected static GenericContainer<?> bookerContainer = new GenericContainer<>(BOOKER_IMAGE)
+    protected static final GenericContainer<?> bookerContainer = new GenericContainer<>(BOOKER_IMAGE)
         .withExposedPorts(BOOKER_EXPOSED_PORT);
 
     @BeforeAll

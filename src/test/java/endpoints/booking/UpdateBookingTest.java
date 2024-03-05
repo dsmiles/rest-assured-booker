@@ -1,6 +1,6 @@
 package endpoints.booking;
 
-import Base.BaseTest;
+import base.BaseTest;
 import builders.BookingBuilder;
 import model.Booking;
 import org.apache.http.HttpStatus;
@@ -50,7 +50,7 @@ public class UpdateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Updated booking response matches expected schema")
+    @DisplayName("Responds with payload matching expected schema when updating existing booking")
     public void testUpdateBookingSchema() {
         Booking originalBooking = new BookingBuilder().build();
         Booking updatedBooking = new BookingBuilder().build();
@@ -113,7 +113,7 @@ public class UpdateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with 403 when not authorised")
+    @DisplayName("Responds with 403 when to update booking without authorization")
     public void testUpdateBookingWithInvalidAuthorization() {
         Booking originalBooking = new BookingBuilder().build();
         Booking updatedBooking = new BookingBuilder().build();
@@ -133,7 +133,7 @@ public class UpdateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with 405 error when attempting to update non-existent booking")
+    @DisplayName("Responds with 405 when attempting to update non-existent booking")
     public void testUpdateOfNonExistentBooking() {
         Booking updatedBooking = new BookingBuilder().build();
         String token = getAuthenticationToken();
