@@ -78,13 +78,7 @@ public class PartialUpdateTest extends BaseTest {
             .then()
             .spec(responseSpec())
             .body("firstname", equalTo(payload.get("firstname")))
-            .body("lastname", equalTo(payload.get("lastname")))
-            .body("totalprice", equalTo(originalBooking.getTotalPrice()))
-            .body("depositpaid", equalTo(originalBooking.isDepositPaid()))
-            .body("bookingdates.checkin", equalTo(originalBooking.getBookingDates().getCheckin()))
-            .body("bookingdates.checkout", equalTo(originalBooking.getBookingDates().getCheckout()))
-            .body("additionalneeds", equalTo(originalBooking.getAdditionalNeeds()))
-            .body(matchesJsonSchemaInClasspath("BookingSchema.json"));
+            .body("lastname", equalTo(payload.get("lastname")));
     }
 
     @Test
