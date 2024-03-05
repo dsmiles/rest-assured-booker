@@ -73,7 +73,7 @@ public class UpdateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with 403 when attempting to update booking with authorization header")
+    @DisplayName("Responds with updated booking when updating existing booking using authorization header")
     public void testUpdateBookingWithAuthorizationHeader() {
         Booking originalBooking = new BookingBuilder().build();
         Booking updatedBooking = new BookingBuilder().build();
@@ -88,8 +88,7 @@ public class UpdateBookingTest extends BaseTest {
             .when()
             .put("/booking/{id}")
             .then()
-            .assertThat()
-            .statusCode(200);
+            .spec(responseSpec());
     }
 
     @Test
