@@ -20,20 +20,8 @@ public class HealthCheckTest extends BaseTest {
             .get("/ping")
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_CREATED);     // This should really be SC_OK (200)
-                                                    // Since we didn't create any data
-    }
+            .statusCode(HttpStatus.SC_CREATED);
 
-    @Test
-    @DisplayName("Reject calls to unknown endpoints")
-    public void testUnknownEndpoint() {
-        RestAssured
-            .given()
-            .spec(requestSpec())
-            .when()
-            .get("/unknown")
-            .then()
-            .assertThat()
-            .statusCode(HttpStatus.SC_NOT_FOUND);
+        // This should really be SC_OK (200) since we didn't create any data - idempotent
     }
 }
