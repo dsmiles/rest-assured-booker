@@ -15,9 +15,9 @@ assertions using Hamcrest.
 
 The test framework contains approximately 40 tests ensuring each endpoint of the Restful-Booker API is tested. 
 
-- /auth     - generate authentication tokens
-- /booking  - CRUD operations for booking records
-- /ping     - health check
+- `/auth`     - generate authentication tokens
+- `/booking`  - CRUD operations for booking records
+- `/ping`     - health check
 
 The tests cover the following:
 
@@ -34,7 +34,7 @@ The tests cover the following:
 - Response payloads in JSON and XML formats
 - Assertions using Hamcrest Matchers
 - Use of Lombok and Java `POJO` for passing values to `POST`, `PUT` and `PATCH` request bodies
-- Use of Datafaker for generating random fake test data and using it in automated tests
+- Use of Datafaker for generating random test data
  
 
 ## Framework Components
