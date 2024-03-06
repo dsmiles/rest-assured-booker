@@ -31,7 +31,7 @@ This is incorrect behavior. The API should return an HTTP 401 status code when g
 ### 2.1 General issues
 
 #### 2.1.1 Authorization
-The API does not implement the normal [challenge-response mechanism](https://datatracker.ietf.org/doc/html/rfc2617#section-1.2) to indicate explicitily when the  consumer needs to authenticate to access the resource. By default, REST-assured waits for the server to challenge before sending the credentials. For this reason, I decided to user the _preemptive()_ directive to instruct REST-assured to send the credentials without waiting for an Unauthorized response.
+The API does not implement the normal [challenge-response mechanism](https://datatracker.ietf.org/doc/html/rfc2617#section-1.2) to indicate explicitly when the  consumer needs to authenticate to access the resource. By default, REST-assured waits for the server to challenge before sending the credentials. For this reason, I decided to use the _preemptive()_ directive to instruct REST-assured to send the credentials without waiting for an Unauthorized response.
 
 ```http request
 given().auth()
