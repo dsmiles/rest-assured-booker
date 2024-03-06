@@ -1,43 +1,64 @@
 # REST-assured Restful-Booker Test Project
 
-This repository contains a simple REST-assured test framework for running integration tests against the Restful-Booker Web API 
-by Mark Winteringham. The Restful-Booker API offers authentication, CRUD operations, and is loaded with bugs for the purpose of learning.
+This repository contains a simple REST-assured test framework for running integration tests against the Restful-Booker 
+Web API by Mark Winteringham. The Restful-Booker API offers authentication, CRUD operations, and contains a number of
+bugs for learning purposes.
+
+I wanted to utilise the Testcontainers library to run the Restful-Booker API in a Docker container, ensuring that each 
+test run is isolated and does not affect the state of the system. This is especially important when running integration 
+tests using a database. 
+
+I normally use a combination of JUnit and AssertJ for writing tests, but for this project I decided to write the 
+assertions using Hamcrest.  
+
+## Tests
+
+The test framework contains approximately 40 tests ensuring each endpoint of the Restful-Booker API is tested. 
+
+- /auth     - generate authentication tokens
+- /booking  - CRUD operations for booking records
+- /ping     - health check
+
+The tests cover the following:
+
+- `GET` requests
+- `POST` requests
+- `PUT` requests
+- `PATCH` requests
+- `DELETE` requests
+- Request Payloads in JSON and XML formats
+- Different types of Authentication (cookie and Authorization header) 
+- Response headers verification
+- Response Body verification
+- Response Status Code verification
+- Response payloads in JSON and XML formats
+- Assertions using Hamcrest Matchers
+- Use of Lombok and Java `POJO` for passing values to `POST`, `PUT` and `PATCH` request bodies
+- Use of Datafaker for generating random fake test data and using it in automated tests
+ 
+I will also need to update the issues found section as I have identified further problems.
+
+_This line is a test commit_
+
+## Framework Components
 
 The test framework utilises the following components:
 
-- Java
-- JUnit 5
-- REST-assured
+- Java 17
+- JUnit 5 
+- Maven
+- Git
+- REST-assured 
 - Hamcrest Matchers
+- Docker Desktop 4.27.2
 - Testcontainers
 - Testcontainers JUnit 5 Extension
 - Lombok
 - Datafaker
 
-## Tests
+Check the POM file for component versions.
 
-The test framework contains approximately 40 tests (so far), covering the following scenarios:
-
-- GET requests
-- POST requests
-- PUT requests
-- PATCH requests
-- DELETE requests
-- Authentication
-- Response Body verification
-- Response Status Code verification
-- Response headers verification
-- Assertions using Hamcrest Matchers
-- Use of Java Records for passing values to POST, PUT and PATCH request body
-- Use of Datafaker for generating random fake test data and using it in automated tests
-
-I will continue to add more tests as I explore the Restful-Booker API.  
-
-I will also need to update the issues found section as I have identified further problems.
-
-_This line is a test commit_
-
-## Testcontainers
+### Testcontainers
 
 ![Testcontainers Logo](/assets/images/testcontainers-logo.svg)
 
@@ -58,7 +79,7 @@ system efficiency.
 
 For more information, visit the [Testcontainers website](https://testcontainers.com).
 
-## restful-booker
+### restful-booker
 
 Restful-Booker is a Web API playground created by Mark Winteringham for learning about API testing or trying out API 
 testing tools. It offers authentication, CRUD operations, and comes preloaded with 10 records, resetting itself every 
@@ -69,7 +90,7 @@ For further details, refer to Mark's website [here](https://restful-booker.herok
 
 The Docker image for Restful-Booker can be found [here](https://github.com/mwinteringham/restful-booker).
 
-## Datafaker
+### Datafaker
 
 Datafaker is a library for Java and Kotlin to generate fake data. It is useful for generating test data to fill a database, 
 for stress testing, or for anonymizing data from production services.
@@ -85,78 +106,31 @@ For further details, visit the [Datafaker website](https://www.datafaker.net).
 
 ## Requirements
 
-This project was written using the following:
+This example was written using the following:
 
 - Java 17
-- JUnit 5
 - Maven
 - Git
-- REST-assured
-- Hamcrest Matchers
-- Testcontainers
-- Testcontainers JUnit 5 Extension
-- Lombok
-- Datafaker
+- REST-assured [here](https://rest-assured.io)
+- Docker [here](https://www.docker.com)
 
+
+## Usage
+
+To run the test framework, follow these steps:
+
+1. Clone the repository:
+```
+git clone https://github.com/dsmiles/rest-assured-booker.git
+cd rest-assured-booker
+```
+
+2. Run Maven test command:
+```
+mvn test
+```
 
 ## Issues Found
 
-While testing the Restful Booker API, I encountered several issues that are worth noting:
-
-Note: I'm using the Docker image, therefore the endpoint URLs will be `http://localhost:3001/` and not `https://restful-booker.herokuapp.com/`
-
-### Endpoint: `https://localhost:3001/booking`
-
-#### Get Booking Ids
-
-- Filtering by `checkin` date does not work correctly. According to the documentation, it should return bookings that have a checkin date 'greater than or equal to' the given date. However, experimentation reveals that it only returns bookings based on the 'greater than' condition.
-  This discrepancy has been confirmed by examining the source code, where the MongoDB database query incorrectly uses `$gt` instead of `$gte` when processing the checkin dates. Here's an excerpt from the source code demonstrating the issue:
-
-```javascript
-if (typeof(req.query.checkin) != 'undefined') {
-    query["bookingdates.checkin"] = {$gt: new Date(req.query.checkin).toISOString()}
-}
-```
-
-- Filtering by `checkout` date does not work correctly. According to the documentation, it should return bookings that have a checkout date 'less than or equal to' the given date. However, experimentation reveals that it only returns bookings based on the 'less than' condition.
-  This discrepancy has been confirmed by examining the source code, where the MongoDB database query incorrectly uses `lt` instead of `lte` when processing the checkout dates. Here's an excerpt from the source code demonstrating the issue:
-
-```javascript
-  if(typeof(req.query.checkout) != 'undefined'){
-  query["bookingdates.checkout"] = {$lt: new Date(req.query.checkout).toISOString()}
-  }
-```
-
-#### Create Booking
-- The total price value cannot be a floating-point number; precision is lost during saving. The JSON specification suggests that JSON Numbers can contain fractional values and therefore should be represented by a Double datatype. 
-- Checkin and checkout dates are validated, preventing the creation of invalid bookings, but the API returns a `200 OK` status code instead of the more appropriate `400 Bad Request`.
-
-### Endpoint: `https://localhost:3001/booking/1`
-
-#### Delete Booking
-- Authorization can only be set via the Cookie header and does not work with the Authorization header, resulting in a `403 Forbidden` response.
-- A successful delete action returns a `201 Created` status code with no response body. This is an inappropriate choice for a delete operation, since a `201` status code  is typically used when creating new data. The more appropriate response should have been `204 No Content`, since there was no response body.  
-- Attempting to delete a non-existent booking returns a `405 Method Not Allowed`. It would be more appropriate to return a `404 Not Found` status code. You would only use a `405 Method Not Allowed` when attempting to delete ALL bookings.
-
-### Endpoint: `https://localhost:3001/ping`
-
-#### Health Check
-- The ping endpoint returns a `201 Created` status code. Using a `200 OK` status code would be a more suitable choice, since you are not creating any data on the system. This should be an idempotent operation. 
-
-### HTTP Status Code 418 I am a Teapot
-Experimentation has revealed that the Restful Booker API generates an HTTP 418 status code response with the message "I'm a Teapot" in the following scenarios:
-
-- Whenever an HTTP POST, PUT, or PATCH request is received by the application that contains an unsupported `Accept:` header.
-
-Here's an example HTTP request and response demonstrating the 418 status code:
-```http request
-  HTTP/1.1 418 I'm a Teapot
-  X-Powered-By: Express
-  Content-Type: text/plain; charset=utf-8
-  Content-Length: 12
-  ETag: W/"c-MoOTQ9Zl5bv7AjXgAKmn0YHM8sY"
-  Date: Fri, 01 Mar 2024 13:34:33 GMT
-  Connection: keep-alive
-
-  I'm a teapot
-```
+While testing the Restful Booker API, I encountered several issues that are worth noting. The list of issues found has 
+been moved to file [Issues Found](ISSUES.md).

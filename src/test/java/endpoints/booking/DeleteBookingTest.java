@@ -34,13 +34,13 @@ public class DeleteBookingTest extends BaseTest {
             .delete("/booking/{id}")
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_CREATED);     // wrong status code
+            .statusCode(HttpStatus.SC_CREATED);
 
         // This should really be 200 or 204 on deletion success
     }
 
     @Test
-    @DisplayName("Responds with 201 when deleting an existing booking using auth")
+    @DisplayName("Responds with 200 when deleting an existing booking using auth")
     void testDeleteBookingWithAuthHeader() {
         Booking booking = new BookingBuilder().build();
         int bookingId = createBooking(booking);
@@ -54,9 +54,9 @@ public class DeleteBookingTest extends BaseTest {
             .delete("/booking/{id}")
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_CREATED);     // wrong status code
+            .statusCode(HttpStatus.SC_OK);
 
-        // This should really be 200 or 204 on deletion success
+        // Currently returns 201. This should really be 200 with a body or 204 without body on deletion success
     }
 
     @Test
@@ -90,7 +90,7 @@ public class DeleteBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with error when deleting an non-existent booking")
+    @DisplayName("Responds with 404 when deleting a non-existent booking")
     void testDeleteNonExistentBooking() {
         String token = getAuthenticationToken();
 
@@ -103,9 +103,9 @@ public class DeleteBookingTest extends BaseTest {
             .delete("/booking/{id}")
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);     // wrong status code
+            .statusCode(HttpStatus.SC_NOT_FOUND);
 
-        // This should really be 404 Not Found
+        // Currently returns 405 Method Not Supported
     }
 
     @Test
@@ -122,7 +122,7 @@ public class DeleteBookingTest extends BaseTest {
             .delete("/booking")
             .then()
             .assertThat()
-            .statusCode(HttpStatus.SC_NOT_FOUND);   // wrong status code
+            .statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
 
         // This should really be 405 Method Not Supported
     }

@@ -147,7 +147,7 @@ public class PartialUpdateTest extends BaseTest {
             .then()
             .statusCode(HttpStatus.SC_NOT_FOUND);
 
-        // This should be 404 (Not Found), if ID not found or invalid.
+        // Incorrectly returns 405 Method not allowed. This should be 404 (Not Found), if ID not found or invalid.
     }
 
     // TODO Payload contains XML Content-Type: application/xml

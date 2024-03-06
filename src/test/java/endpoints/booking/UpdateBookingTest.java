@@ -133,7 +133,7 @@ public class UpdateBookingTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with 405 when attempting to update non-existent booking")
+    @DisplayName("Responds with 404 when attempting to update non-existent booking")
     public void testUpdateOfNonExistentBooking() {
         Booking updatedBooking = new BookingBuilder().build();
         String token = getAuthenticationToken();
@@ -147,7 +147,7 @@ public class UpdateBookingTest extends BaseTest {
             .when()
             .put("/booking/{id}")
             .then()
-            .statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
+            .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
     // TODO Payload contains XML Content-Type: application/xml
