@@ -50,10 +50,9 @@ public class AuthenticationTest extends BaseTest {
             .then()
             .spec(responseSpec())
             .assertThat()
-            .statusCode(HttpStatus.SC_UNAUTHORIZED)       // Warning - returns 200 OK
+            .statusCode(HttpStatus.SC_UNAUTHORIZED)
             .body("reason", equalTo("Bad credentials"));
 
         // Should return a 401 Unauthorized status code and MAY return a payload with a reason
     }
-
 }

@@ -57,7 +57,7 @@ public class CreateBookingTest extends BaseTest {
     // TODO XML payload
 
     @Test
-    @DisplayName("Responds with error when a bad payload is sent")
+    @DisplayName("Responds with 400 when a bad payload is sent")
     public void testCreateNewBookingWithBadPayload() {
         Booking booking = new BookingBuilder()
             .withFirstname(null)
@@ -70,7 +70,7 @@ public class CreateBookingTest extends BaseTest {
             .when()
             .post("/booking")
             .then()
-            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);  // Should be 400 Bad Request
+            .statusCode(HttpStatus.SC_BAD_REQUEST);
 
         // Server side validation SHOULD stop this - Return 400 Bad Request
     }
@@ -105,9 +105,9 @@ public class CreateBookingTest extends BaseTest {
             .then()
             .statusCode(418)
             .contentType(ContentType.TEXT)
-            .body(equalTo("I'm a teapot"));  // This should be 406 Not Acceptable
+            .body(equalTo("I'm a teapot"));
 
-        // Error: This should be a 406
+        // Error: This should be a 406 Not Acceptable
     }
 
     // TODO Payload contains XML Content-Type: application/xml

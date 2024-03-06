@@ -97,6 +97,8 @@ public class GetBookingIdsTest extends BaseTest {
             .spec(responseSpec())
             .body("bookingid", is(notNullValue()))
             .body(".", hasSize(1));
+
+        // Internal code problem with the MongoDB query - This should return 1 booking
     }
 
     @Test
@@ -114,6 +116,8 @@ public class GetBookingIdsTest extends BaseTest {
             .spec(responseSpec())
             .body("bookingid", is(notNullValue()))
             .body(".", hasSize(1));
+
+        // Internal code problem with the MongoDB query - This should return 1 booking
     }
 
     @Test
@@ -135,6 +139,8 @@ public class GetBookingIdsTest extends BaseTest {
             .spec(responseSpec())
             .body("bookingid", is(notNullValue()))
             .body(".", hasSize(1));
+
+        // Internal code problem with the MongoDB query - This should return 1 booking
     }
 
     @Test
@@ -158,6 +164,8 @@ public class GetBookingIdsTest extends BaseTest {
             .spec(responseSpec())
             .body("bookingid", is(notNullValue()))
             .body(".", hasSize(1));
+
+        // Internal code problem with the MongoDB query - This should return 1 booking
     }
 
     @Test
