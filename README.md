@@ -36,9 +36,6 @@ The tests cover the following:
 - Use of Lombok and Java `POJO` for passing values to `POST`, `PUT` and `PATCH` request bodies
 - Use of Datafaker for generating random fake test data and using it in automated tests
  
-I will also need to update the issues found section as I have identified further problems.
-
-_This line is a test commit_
 
 ## Framework Components
 
