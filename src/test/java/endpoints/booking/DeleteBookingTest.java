@@ -14,8 +14,6 @@ import static specs.BaseSpec.requestSpec;
 
 public class DeleteBookingTest extends BaseTest {
 
-    public static final int INVALID_BOOKING_ID = 999999;
-
     @Test
     @DisplayName("Responds with 201 when deleting an existing booking")
     void testDeleteBooking() {
@@ -124,6 +122,6 @@ public class DeleteBookingTest extends BaseTest {
             .assertThat()
             .statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
 
-        // This should really be 405 Method Not Supported
+        // This should really be 405 Method Not Allowed
     }
 }

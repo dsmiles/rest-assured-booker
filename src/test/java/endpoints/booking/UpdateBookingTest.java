@@ -17,8 +17,6 @@ import static specs.BaseSpec.responseSpec;
 
 public class UpdateBookingTest extends BaseTest {
 
-    public static final int INVALID_BOOKING_ID = 999999;
-
     @Test
     @DisplayName("Responds with updated booking when updating existing booking")
     public void testUpdateBooking() {

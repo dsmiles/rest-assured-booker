@@ -20,8 +20,6 @@ import static specs.BaseSpec.responseSpec;
 
 public class PartialUpdateTest extends BaseTest {
 
-    public static final int INVALID_BOOKING_ID = 999999;
-
     @Test
     @DisplayName("Responds with updated booking when attempting partial payload update")
     public void testPartialUpdateBooking() {

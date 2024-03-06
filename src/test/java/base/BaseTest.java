@@ -11,9 +11,12 @@ import specs.BaseSpec;
 @Testcontainers
 public class BaseTest {
 
+    public static final int INVALID_BOOKING_ID = 999999;
+
     // Docker container configuration
     protected static final DockerImageName BOOKER_IMAGE = DockerImageName.parse("mwinteringham/restfulbooker:latest");
     protected static final int BOOKER_EXPOSED_PORT = 3001;
+
     @Container
     protected static final GenericContainer<?> bookerContainer = new GenericContainer<>(BOOKER_IMAGE)
         .withExposedPorts(BOOKER_EXPOSED_PORT);

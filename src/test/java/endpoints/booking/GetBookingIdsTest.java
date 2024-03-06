@@ -169,7 +169,7 @@ public class GetBookingIdsTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Responds with error when filtering by checkin with a invalid date value")
+    @DisplayName("Responds with 404 when filtering by checkin with a invalid date value")
     public void testFilterByCheckinDateInvalid() {
         given()
             .spec(requestSpec())
@@ -177,7 +177,7 @@ public class GetBookingIdsTest extends BaseTest {
             .when()
             .get("/booking")
             .then()
-            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);   // This should be 400 Bad Request
+            .statusCode(HttpStatus.SC_BAD_REQUEST);
 
         // Server side validation SHOULD stop this - Return 400 Bad Request
     }

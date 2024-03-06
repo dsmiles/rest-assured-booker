@@ -16,8 +16,6 @@ import static specs.BaseSpec.*;
 
 public class GetBookingTest extends BaseTest {
 
-    public static final int INVALID_BOOKING_ID = 999999;
-
     @Test
     @DisplayName("Responds with payload when retrieving booking ID")
     public void testGetBookingById() {
