@@ -18,60 +18,47 @@ public class BaseSpec {
     private static String containerHostname;
     private static int containerPort;
 
-    /**
-     * Initializes the container hostname and port for the REST API testing. As this is done at runtime.
-     *
-     * @param host The hostname of the container.
-     * @param port The port of the container.
-     */
     public static void init(String host, int port) {
         containerHostname = host;
         containerPort = port;
     }
 
-    /**
-     * Creates a RequestSpecification with predefined settings.
-     *
-     * @return The RequestSpecification object.
-     */
-    public static RequestSpecification requestSpec() {
+    private static RequestSpecBuilder commonRequestSpecBuilder() {
         return new RequestSpecBuilder()
-            .setContentType(ContentType.JSON)
-            .setAccept("application/json")
             .setBaseUri("http://" + containerHostname)
             .setPort(containerPort)
             .addFilter(new RequestLoggingFilter())
-            .addFilter(new ResponseLoggingFilter())
+            .addFilter(new ResponseLoggingFilter());
+    }
+
+    public static RequestSpecification requestSpec() {
+        return commonRequestSpecBuilder()
+            .setContentType(ContentType.JSON)
+            .setAccept("application/json")
             .build();
     }
 
     public static RequestSpecification requestSpecXml() {
-        return new RequestSpecBuilder()
+        return commonRequestSpecBuilder()
             .setContentType("application/xml")
             .setAccept("application/xml")
-            .setBaseUri("http://" + containerHostname)
-            .setPort(containerPort)
-            .addFilter(new RequestLoggingFilter())
-            .addFilter(new ResponseLoggingFilter())
             .build();
     }
 
-    /**
-     * Creates a ResponseSpecification with predefined settings.
-     *
-     * @return The ResponseSpecification object.
-     */
-    public static ResponseSpecification responseSpec() {
+    private static ResponseSpecBuilder commonResponseSpecBuilder() {
         return new ResponseSpecBuilder()
-            .expectStatusCode(HttpStatus.SC_OK)
+            .expectStatusCode(HttpStatus.SC_OK);
+    }
+
+    public static ResponseSpecification responseSpec() {
+        return commonResponseSpecBuilder()
             .expectContentType(ContentType.JSON)
             .build();
     }
 
     public static ResponseSpecification responseSpecXml() {
-        return new ResponseSpecBuilder()
-            .expectStatusCode(HttpStatus.SC_OK)
-//            .expectContentType(ContentType.XML)
+        return commonResponseSpecBuilder()
+            .expectContentType(ContentType.XML)
             .build();
     }
 }
