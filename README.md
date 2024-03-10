@@ -44,7 +44,7 @@ The test framework utilises the following components:
 - Java 17
 - JUnit 5 
 - Maven
-- Git
+- GitHub Actions
 - REST-assured 
 - Hamcrest Matchers
 - Docker Desktop 4.27.2
@@ -100,6 +100,18 @@ For more information, you can read the introductory article on Datafaker on the 
 website, titled [Introduction to Datafaker](https://www.baeldung.com/java-datafaker).
 
 For further details, visit the [Datafaker website](https://www.datafaker.net).
+
+## GitHub Actions
+
+Implemented a simple pipeline using GitHub Actions to run the test suite whenever a change is pushed to the repository.
+
+The steps are:
+- Check out the code from the repo
+- Set up a container to run on Ubuntu Latest
+- Set up the pre-reqs for Java using the Action Scripts
+- Build with Maven and run the tests against the container
+- Collect the test results as artifacts
+
 
 ## Requirements
 
