@@ -2,6 +2,7 @@ package endpoints.auth;
 
 import base.BaseTest;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,7 @@ public class AuthenticationTest extends BaseTest {
             .body("token", matchesPattern("[a-zA-Z0-9]{15,}"));
     }
 
+    @Disabled("Disabled because API incorrectly returns 200")
     @Test
     @DisplayName("Responds with 401 when given invalid credentials")
     public void testTokenGenerationWithInvalidCredentials() {

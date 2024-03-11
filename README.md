@@ -108,7 +108,7 @@ Implemented a simple pipeline using GitHub Actions to run the test suite wheneve
 The steps are:
 - Check out the code from the repo
 - Set up a container to run on Ubuntu Latest
-- Set up the pre-reqs for Java using the Action Scripts
+- Set up Java 17 using the Action Scripts
 - Build with Maven and run the tests against the container
 - Collect the test results as artifacts
 

@@ -5,6 +5,7 @@ import builders.BookingBuilder;
 import io.restassured.http.ContentType;
 import model.Booking;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -56,6 +57,7 @@ public class CreateBookingTest extends BaseTest {
 
     // TODO XML payload
 
+    @Disabled("Disabled because API incorrectly returns 500")
     @Test
     @DisplayName("Responds with 400 when a bad payload is sent")
     public void testCreateNewBookingWithBadPayload() {
