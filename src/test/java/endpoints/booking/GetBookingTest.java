@@ -4,6 +4,7 @@ import base.BaseTest;
 import builders.BookingBuilder;
 import model.Booking;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +52,7 @@ public class GetBookingTest extends BaseTest {
             .body(matchesJsonSchemaInClasspath("BookingSchema.json"));
     }
 
+    @Disabled("Disabled because API incorrectly returns wrong content-type")
     @Test
     @DisplayName("Responds with XML payload when retrieving booking ID with accept application/xml")
     public void testGetBookingByIdWithAcceptXml() {

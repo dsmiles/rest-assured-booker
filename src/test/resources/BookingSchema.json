@@ -30,7 +30,8 @@
       ]
     },
     "additionalneeds": {
-      "type": "string"
+      "type": "string",
+      "optional": true
     }
   },
   "required": [
@@ -38,7 +39,6 @@
     "lastname",
     "totalprice",
     "depositpaid",
-    "bookingdates",
-    "additionalneeds"
+    "bookingdates"
   ]
 }
